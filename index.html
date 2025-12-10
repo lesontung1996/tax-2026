@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tính Lương Gross - Net (So sánh Luật Mới 2026)</title>
+    <style>
+      :root {
+        --primary: #2563eb;
+        --bg: #f3f4f6;
+        --white: #ffffff;
+        --text: #1f2937;
+        --border: #e5e7eb;
+        --success: #10b981;
+        --warning: #f59e0b;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        line-height: 1.5;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: var(--white);
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+      }
+
+      h1 {
+        text-align: center;
+        color: var(--primary);
+        margin-bottom: 30px;
+      }
+
+      .controls {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+        padding: 20px;
+        background: #f8fafc;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      label {
+        font-weight: 600;
+        margin-bottom: 8px;
+        font-size: 0.9em;
+      }
+
+      input[type="number"],
+      select {
+        padding: 10px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        font-size: 16px;
+        transition: border-color 0.2s;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: var(--primary);
+      }
+
+      .actions {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-bottom: 30px;
+      }
+
+      button {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: opacity 0.2s;
+        font-size: 16px;
+      }
+
+      .btn-gross {
+        background: var(--primary);
+        color: white;
+      }
+      .btn-net {
+        background: var(--success);
+        color: white;
+      }
+      button:hover {
+        opacity: 0.9;
+      }
+
+      .results-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      @media (max-width: 768px) {
+        .results-container {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .result-card {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 20px;
+      }
+
+      .result-card.old {
+        border-top: 4px solid var(--warning);
+      }
+      .result-card.new {
+        border-top: 4px solid var(--success);
+      }
+
+      .card-header {
+        font-weight: 700;
+        font-size: 1.1em;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .tag {
+        font-size: 0.75em;
+        padding: 4px 8px;
+        border-radius: 4px;
+        color: white;
+      }
+      .tag-old {
+        background: var(--warning);
+      }
+      .tag-new {
+        background: var(--success);
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px dashed var(--border);
+      }
+
+      .row.highlight {
+        font-weight: 700;
+        color: var(--primary);
+        border-bottom: none;
+        font-size: 1.1em;
+        margin-top: 15px;
+      }
+
+      .note {
+        font-size: 0.85em;
+        color: #666;
+        margin-top: 20px;
+        background: #fffbeb;
+        padding: 10px;
+        border-radius: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Công Cụ Tính Lương Gross <-> Net</h1>
+
+      <div class="controls">
+        <div class="form-group">
+          <label>Thu nhập (VND)</label>
+          <input
+            type="number"
+            id="income"
+            value="30000000"
+            placeholder="Nhập số tiền..."
+          />
+        </div>
+        <div class="form-group">
+          <label>Số người phụ thuộc</label>
+          <input type="number" id="dependents" value="0" min="0" />
+        </div>
+        <div class="form-group">
+          <label>Lương đóng bảo hiểm</label>
+          <input
+            type="number"
+            id="insuranceSalary"
+            placeholder="Mặc định bằng lương chính"
+          />
+          <small style="color: #888; margin-top: 4px"
+            >Để trống nếu đóng full lương</small
+          >
+        </div>
+        <div class="form-group">
+          <label>Vùng (để tính trần BHTN)</label>
+          <select id="region">
+            <option value="4960000">Vùng I (Hà Nội, TP.HCM...)</option>
+            <option value="4410000">Vùng II</option>
+            <option value="3860000">Vùng III</option>
+            <option value="3250000">Vùng IV</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn-gross" onclick="calculate('gross2net')">
+          Gross ➔ Net
+        </button>
+        <button class="btn-net" onclick="calculate('net2gross')">
+          Net ➔ Gross
+        </button>
+      </div>
+
+      <div class="results-container" id="resultsArea" style="display: none">
+        <div class="result-card old">
+          <div class="card-header">
+            LUẬT HIỆN HÀNH <span class="tag tag-old">Trước 2026</span>
+          </div>
+          <div id="outputOld"></div>
+        </div>
+
+        <div class="result-card new">
+          <div class="card-header">
+            LUẬT MỚI <span class="tag tag-new">Từ 01/01/2026</span>
+          </div>
+          <div id="outputNew"></div>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>Thông tin thay đổi (Dự kiến áp dụng từ 2026):</strong><br />
+        - Giảm trừ bản thân: 11 triệu ➔ <strong>15.5 triệu</strong>.<br />
+        - Giảm trừ người phụ thuộc: 4.4 triệu ➔
+        <strong>6.2 triệu</strong>.<br />
+        - Biểu thuế lũy tiến: 7 bậc ➔ <strong>5 bậc</strong> (Giãn khoảng cách
+        các bậc thuế).<br />
+        - Mức lương cơ sở (để tính trần BHXH/BHYT): Tạm tính 2.340.000đ (có thể
+        thay đổi).
+      </div>
+    </div>
+
+    <script>
+      // CẤU HÌNH LUẬT
+      const CONFIG = {
+        baseSalary: 2340000, // Lương cơ sở
+        insurance: {
+          bhxh: 0.08,
+          bhyt: 0.015,
+          bhtn: 0.01,
+          maxBHXH_BHYT: 20, // 20 lần lương cơ sở
+          maxBHTN: 20, // 20 lần lương tối thiểu vùng
+        },
+        old: {
+          selfDeduction: 11000000,
+          depDeduction: 4400000,
+          taxBrackets: [
+            { max: 5000000, rate: 0.05 },
+            { max: 10000000, rate: 0.1 },
+            { max: 18000000, rate: 0.15 },
+            { max: 32000000, rate: 0.2 },
+            { max: 52000000, rate: 0.25 },
+            { max: 80000000, rate: 0.3 },
+            { max: Infinity, rate: 0.35 },
+          ],
+        },
+        new: {
+          selfDeduction: 15500000, // Mức mới 2026
+          depDeduction: 6200000, // Mức mới 2026
+          // Biểu thuế 5 bậc mới (Theo dự thảo đã chốt)
+          taxBrackets: [
+            { max: 10000000, rate: 0.05 }, // Đến 10tr
+            { max: 30000000, rate: 0.1 }, // 10-30tr
+            { max: 60000000, rate: 0.2 }, // 30-60tr
+            { max: 100000000, rate: 0.3 }, // 60-100tr
+            { max: Infinity, rate: 0.35 }, // Trên 100tr
+          ],
+        },
+      };
+
+      function formatCurrency(num) {
+        return new Intl.NumberFormat("vi-VN", {
+          style: "currency",
+          currency: "VND",
+        }).format(num);
+      }
+
+      // Hàm tính thuế TNCN dựa trên thu nhập chịu thuế và bảng thuế
+      function calculateTax(taxableIncome, brackets) {
+        if (taxableIncome <= 0) return 0;
+        let totalTax = 0;
+        let currentIncome = taxableIncome;
+        let previousMax = 0;
+
+        for (let i = 0; i < brackets.length; i++) {
+          const bracket = brackets[i];
+          const range = bracket.max - previousMax;
+
+          if (currentIncome > range) {
+            totalTax += range * bracket.rate;
+            currentIncome -= range;
+            previousMax = bracket.max;
+          } else {
+            totalTax += currentIncome * bracket.rate;
+            break;
+          }
+        }
+        return totalTax;
+      }
+
+      // Hàm tính Gross -> Net (Logic cốt lõi)
+      function getNetFromGross(
+        gross,
+        insuranceSalaryInput,
+        dependents,
+        regionMinSalary,
+        configType
+      ) {
+        const cfg = CONFIG[configType];
+
+        // 1. Tính bảo hiểm
+        let insSalary = insuranceSalaryInput > 0 ? insuranceSalaryInput : gross;
+
+        // Trần BHXH, BHYT
+        const maxInsSalary = CONFIG.baseSalary * CONFIG.insurance.maxBHXH_BHYT;
+        const salaryForBHXH = Math.min(insSalary, maxInsSalary);
+
+        // Trần BHTN
+        const maxBHTNSalary = regionMinSalary * CONFIG.insurance.maxBHTN;
+        const salaryForBHTN = Math.min(insSalary, maxBHTNSalary);
+
+        const bhxh = salaryForBHXH * CONFIG.insurance.bhxh;
+        const bhyt = salaryForBHXH * CONFIG.insurance.bhyt;
+        const bhtn = salaryForBHTN * CONFIG.insurance.bhtn;
+        const totalInsurance = bhxh + bhyt + bhtn;
+
+        // 2. Thu nhập trước thuế
+        const incomeBeforeTax = gross - totalInsurance;
+
+        // 3. Giảm trừ
+        const totalDeduction =
+          cfg.selfDeduction + dependents * cfg.depDeduction;
+
+        // 4. Thu nhập chịu thuế
+        const taxableIncome = Math.max(0, incomeBeforeTax - totalDeduction);
+
+        // 5. Thuế TNCN
+        const tax = calculateTax(taxableIncome, cfg.taxBrackets);
+
+        // 6. Net
+        const net = gross - totalInsurance - tax;
+
+        return {
+          gross,
+          net,
+          bhxh,
+          bhyt,
+          bhtn,
+          tax,
+          taxableIncome,
+          totalDeduction,
+        };
+      }
+
+      // Hàm tính Net -> Gross (Dùng phương pháp Binary Search để tìm Gross khớp Net)
+      function getGrossFromNet(
+        targetNet,
+        insuranceSalaryInput,
+        dependents,
+        regionMinSalary,
+        configType
+      ) {
+        // Nếu đóng bảo hiểm trên lương Gross thực tế thì Gross phải tìm trong loop
+        // Nếu đóng bảo hiểm cố định thì đơn giản hơn, nhưng ở đây ta giải bài toán tổng quát
+
+        let lower = targetNet;
+        let upper = targetNet * 2; // Giả định Gross không quá 2 lần Net (trừ trường hợp lương siêu khủng)
+        let gross = targetNet;
+        let calculatedNet = 0;
+        let loopCount = 0;
+
+        // Tìm khoảng upper bound
+        while (true) {
+          const res = getNetFromGross(
+            upper,
+            insuranceSalaryInput,
+            dependents,
+            regionMinSalary,
+            configType
+          );
+          if (res.net > targetNet) break;
+          upper *= 1.5; // Nới rộng khoảng tìm
+          if (upper > 10000000000) break; // Break an toàn
+        }
+
+        // Binary search
+        while (loopCount < 100) {
+          gross = (lower + upper) / 2;
+          const res = getNetFromGross(
+            gross,
+            insuranceSalaryInput,
+            dependents,
+            regionMinSalary,
+            configType
+          );
+          calculatedNet = res.net;
+
+          if (Math.abs(calculatedNet - targetNet) < 100) {
+            // Sai số cho phép 100đ
+            return res;
+          }
+
+          if (calculatedNet < targetNet) {
+            lower = gross;
+          } else {
+            upper = gross;
+          }
+          loopCount++;
+        }
+
+        return getNetFromGross(
+          gross,
+          insuranceSalaryInput,
+          dependents,
+          regionMinSalary,
+          configType
+        );
+      }
+
+      function renderResult(data, elementId) {
+        const html = `
+            <div class="row"><span>Lương Gross:</span> <strong>${formatCurrency(
+              data.gross
+            )}</strong></div>
+            <div class="row"><span>Bảo hiểm (10.5%):</span> <span>-${formatCurrency(
+              data.bhxh + data.bhyt + data.bhtn
+            )}</span></div>
+            <div class="row"><span>Giảm trừ gia cảnh:</span> <span>${formatCurrency(
+              data.totalDeduction
+            )}</span></div>
+            <div class="row"><span>Thu nhập tính thuế:</span> <span>${formatCurrency(
+              data.taxableIncome
+            )}</span></div>
+            <div class="row"><span>Thuế TNCN:</span> <span style="color:var(--primary)">-${formatCurrency(
+              data.tax
+            )}</span></div>
+            <div class="row highlight"><span>Lương Net:</span> <span>${formatCurrency(
+              data.net
+            )}</span></div>
+        `;
+        document.getElementById(elementId).innerHTML = html;
+      }
+
+      function calculate(mode) {
+        const income = parseFloat(document.getElementById("income").value) || 0;
+        const dependents =
+          parseInt(document.getElementById("dependents").value) || 0;
+        const insuranceSalary =
+          parseFloat(document.getElementById("insuranceSalary").value) || 0; // 0 nghĩa là full lương
+        const regionMinSalary = parseFloat(
+          document.getElementById("region").value
+        );
+
+        let resOld, resNew;
+
+        if (mode === "gross2net") {
+          resOld = getNetFromGross(
+            income,
+            insuranceSalary,
+            dependents,
+            regionMinSalary,
+            "old"
+          );
+          resNew = getNetFromGross(
+            income,
+            insuranceSalary,
+            dependents,
+            regionMinSalary,
+            "new"
+          );
+        } else {
+          resOld = getGrossFromNet(
+            income,
+            insuranceSalary,
+            dependents,
+            regionMinSalary,
+            "old"
+          );
+          resNew = getGrossFromNet(
+            income,
+            insuranceSalary,
+            dependents,
+            regionMinSalary,
+            "new"
+          );
+        }
+
+        document.getElementById("resultsArea").style.display = "grid";
+        renderResult(resOld, "outputOld");
+        renderResult(resNew, "outputNew");
+      }
+    </script>
+  </body>
+</html>
