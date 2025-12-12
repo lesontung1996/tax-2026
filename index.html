@@ -1,346 +1,535 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tính Lương Gross - Net (So sánh Luật Mới 2026)</title>
     <style>
-        :root {
-            --primary: #2563eb;
-            --bg: #f3f4f6;
-            --white: #ffffff;
-            --text: #1f2937;
-            --border: #e5e7eb;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-        }
+      :root {
+        --primary: #2563eb;
+        --bg: #f3f4f6;
+        --white: #ffffff;
+        --text: #1f2937;
+        --border: #e5e7eb;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --danger: #ef4444;
+      }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.5;
-            margin: 0;
-            padding: 20px;
-        }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        line-height: 1.5;
+        margin: 0;
+        padding: 20px;
+      }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: var(--white);
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-        }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: var(--white);
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+      }
 
-        h1 { text-align: center; color: var(--primary); margin-bottom: 20px; }
+      h1 {
+        text-align: center;
+        color: var(--primary);
+        margin-bottom: 20px;
+      }
 
-        /* INPUT AREA */
-        .controls {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-            padding: 20px;
-            background: #f8fafc;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-        }
+      /* INPUT AREA */
+      .controls {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 15px;
+        margin-bottom: 25px;
+        padding: 20px;
+        background: #f8fafc;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+      }
 
-        .form-group { display: flex; flex-direction: column; }
-        label { font-weight: 600; margin-bottom: 6px; font-size: 0.9em; }
-        input[type="number"], select {
-            padding: 10px; border: 1px solid var(--border);
-            border-radius: 6px; font-size: 16px;
-        }
-        input:focus { outline: none; border-color: var(--primary); }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
 
-        /* BUTTONS */
-        .actions { display: flex; gap: 15px; justify-content: center; margin-bottom: 30px; }
-        button {
-            padding: 12px 24px; border: none; border-radius: 6px;
-            font-weight: 600; cursor: pointer; transition: opacity 0.2s; font-size: 16px;
-        }
-        .btn-gross { background: var(--primary); color: white; }
-        .btn-net { background: var(--success); color: white; }
-        button:hover { opacity: 0.9; }
+      label {
+        font-weight: 600;
+        margin-bottom: 6px;
+        font-size: 0.9em;
+      }
 
-        /* RESULTS AREA */
+      input[type="number"],
+      select {
+        padding: 10px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        font-size: 16px;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: var(--primary);
+      }
+
+      /* BUTTONS */
+      .actions {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-bottom: 30px;
+      }
+
+      button {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: opacity 0.2s;
+        font-size: 16px;
+      }
+
+      .btn-gross {
+        background: var(--primary);
+        color: white;
+      }
+
+      .btn-net {
+        background: var(--success);
+        color: white;
+      }
+
+      button:hover {
+        opacity: 0.9;
+      }
+
+      /* RESULTS AREA */
+      .results-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+
+      @media (max-width: 768px) {
         .results-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 20px;
+          grid-template-columns: 1fr;
         }
-        @media (max-width: 768px) { .results-container { grid-template-columns: 1fr; } }
+      }
 
-        .result-card { border: 1px solid var(--border); border-radius: 8px; padding: 20px; }
-        .result-card.old { border-top: 4px solid var(--warning); }
-        .result-card.new { border-top: 4px solid var(--success); }
+      .result-card {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 20px;
+      }
 
-        .card-header {
-            font-weight: 700; font-size: 1.1em; margin-bottom: 15px;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        
-        .tag { font-size: 0.75em; padding: 4px 8px; border-radius: 4px; color: white; }
-        .tag-old { background: var(--warning); }
-        .tag-new { background: var(--success); }
+      .result-card.old {
+        border-top: 4px solid var(--warning);
+      }
 
-        .row {
-            display: flex; justify-content: space-between; margin-bottom: 10px;
-            padding-bottom: 10px; border-bottom: 1px dashed var(--border);
-        }
-        .row.highlight {
-            font-weight: 700; color: var(--primary);
-            border-bottom: none; font-size: 1.2em; margin-top: 15px;
-        }
+      .result-card.new {
+        border-top: 4px solid var(--success);
+      }
 
-        /* DETAIL TOGGLE SECTION */
-        .detail-toggle-btn {
-            display: block; width: 100%; text-align: center;
-            background: #eef2ff; color: var(--primary);
-            padding: 10px; border-radius: 6px; border: 1px dashed var(--primary);
-            cursor: pointer; font-weight: 600; margin-top: 10px;
-        }
-        .detail-toggle-btn:hover { background: #dbeafe; }
+      .card-header {
+        font-weight: 700;
+        font-size: 1.1em;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-        .detail-section {
-            display: none; /* Hidden by default */
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border);
-        }
+      .tag {
+        font-size: 0.75em;
+        padding: 4px 8px;
+        border-radius: 4px;
+        color: white;
+      }
 
+      .tag-old {
+        background: var(--warning);
+      }
+
+      .tag-new {
+        background: var(--success);
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px dashed var(--border);
+      }
+
+      .row.highlight {
+        font-weight: 700;
+        color: var(--primary);
+        border-bottom: none;
+        font-size: 1.2em;
+        margin-top: 15px;
+      }
+
+      /* DETAIL TOGGLE SECTION */
+      .detail-toggle-btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        background: #eef2ff;
+        color: var(--primary);
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px dashed var(--primary);
+        cursor: pointer;
+        font-weight: 600;
+        margin-top: 10px;
+      }
+
+      .detail-toggle-btn:hover {
+        background: #dbeafe;
+      }
+
+      .detail-section {
+        display: none;
+        /* Hidden by default */
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border);
+      }
+
+      .detail-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      @media (max-width: 768px) {
         .detail-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+          grid-template-columns: 1fr;
         }
-        @media (max-width: 768px) { .detail-grid { grid-template-columns: 1fr; } }
+      }
 
-        .tax-table { width: 100%; border-collapse: collapse; font-size: 0.85em; }
-        .tax-table th, .tax-table td {
-            padding: 8px; border-bottom: 1px solid var(--border); text-align: right;
-        }
-        .tax-table th { text-align: left; color: #666; font-weight: 600; }
-        .tax-table td:first-child { text-align: left; }
-        .tax-table tr:last-child td { border-bottom: none; font-weight: bold; }
+      .tax-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.85em;
+      }
 
-        .empty-row { color: #ccc; font-style: italic; }
+      .tax-table th,
+      .tax-table td {
+        padding: 8px;
+        border-bottom: 1px solid var(--border);
+        text-align: right;
+      }
 
-        .note {
-          font-size: 0.85em;
-          color: #666;
-          margin-top: 20px;
-          background: #fffbeb;
-          padding: 10px;
-          border-radius: 6px;
-        }
+      .tax-table th {
+        text-align: left;
+        color: #666;
+        font-weight: 600;
+      }
+
+      .tax-table td:first-child {
+        text-align: left;
+      }
+
+      .tax-table tr:last-child td {
+        border-bottom: none;
+        font-weight: bold;
+      }
+
+      .empty-row {
+        color: #ccc;
+        font-style: italic;
+      }
+
+      .note {
+        font-size: 0.85em;
+        color: #666;
+        margin-top: 20px;
+        background: #fffbeb;
+        padding: 10px;
+        border-radius: 6px;
+      }
+
+      .credit {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border);
+        text-align: center;
+        font-size: 0.9em;
+        color: #666;
+      }
+
+      .credit a {
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .credit a:hover {
+        text-decoration: underline;
+      }
     </style>
-</head>
-<body>
+  </head>
 
-<div class="container">
-    <h1>Công Cụ Tính Lương Gross <-> Net</h1>
-    
-    <div class="controls">
-        <div class="form-group">
-            <label>Thu nhập (VND)</label>
-            <input type="number" id="income" value="30000000" placeholder="Nhập số tiền...">
-        </div>
-        <div class="form-group">
-            <label>Số người phụ thuộc</label>
-            <input type="number" id="dependents" value="0" min="0">
-        </div>
-        <div class="form-group">
-            <label>Lương đóng BH</label>
-            <input type="number" id="insuranceSalary" placeholder="Mặc định = lương chính">
-        </div>
-        <div class="form-group">
-            <label>Vùng (Trần BHTN)</label>
-            <select id="region">
-                <option value="4960000">Vùng I (Hà Nội, TP.HCM)</option>
-                <option value="4410000">Vùng II</option>
-                <option value="3860000">Vùng III</option>
-                <option value="3250000">Vùng IV</option>
-            </select>
-        </div>
-    </div>
+  <body>
+    <div class="container">
+      <h1>Công Cụ Tính Lương Gross <-> Net</h1>
 
-    <div class="actions">
-        <button class="btn-gross" onclick="calculate('gross2net')">Gross ➔ Net</button>
-        <button class="btn-net" onclick="calculate('net2gross')">Net ➔ Gross</button>
-    </div>
+      <div class="controls">
+        <div class="form-group">
+          <label>Thu nhập (VND)</label>
+          <input
+            type="number"
+            id="income"
+            value="30000000"
+            placeholder="Nhập số tiền..."
+          />
+        </div>
+        <div class="form-group">
+          <label>Số người phụ thuộc</label>
+          <input type="number" id="dependents" value="0" min="0" />
+        </div>
+        <div class="form-group">
+          <label>Lương đóng BH</label>
+          <input
+            type="number"
+            id="insuranceSalary"
+            placeholder="Mặc định = lương chính"
+          />
+        </div>
+        <div class="form-group">
+          <label>Vùng (Trần BHTN)</label>
+          <select id="region">
+            <option value="4960000">Vùng I (Hà Nội, TP.HCM)</option>
+            <option value="4410000">Vùng II</option>
+            <option value="3860000">Vùng III</option>
+            <option value="3250000">Vùng IV</option>
+          </select>
+        </div>
+      </div>
 
-    <div class="results-container" id="resultsArea" style="display:none;">
+      <div class="actions">
+        <button class="btn-gross" onclick="calculate('gross2net')">
+          Gross ➔ Net
+        </button>
+        <button class="btn-net" onclick="calculate('net2gross')">
+          Net ➔ Gross
+        </button>
+      </div>
+
+      <div class="results-container" id="resultsArea" style="display: none">
         <div class="result-card old">
-            <div class="card-header">
-                LUẬT HIỆN HÀNH <span class="tag tag-old">Trước 2026</span>
-            </div>
-            <div id="outputOld"></div>
+          <div class="card-header">
+            LUẬT HIỆN HÀNH <span class="tag tag-old">Trước 2026</span>
+          </div>
+          <div id="outputOld"></div>
         </div>
 
         <div class="result-card new">
-            <div class="card-header">
-                LUẬT MỚI <span class="tag tag-new">Từ 01/01/2026</span>
-            </div>
-            <div id="outputNew"></div>
+          <div class="card-header">
+            LUẬT MỚI <span class="tag tag-new">Từ 01/01/2026</span>
+          </div>
+          <div id="outputNew"></div>
         </div>
-    </div>
+      </div>
 
-    <div id="detailWrapper" style="display:none;">
+      <div id="detailWrapper" style="display: none">
         <button class="detail-toggle-btn" onclick="toggleDetails()">
-            ▼ Xem chi tiết các bước tính thuế
+          ▼ Xem chi tiết các bước tính thuế
         </button>
-        
+
         <div class="detail-section" id="detailSection">
-            <h3 style="text-align:center; font-size:1.1em; margin-bottom:15px; color:#444;">
-                Chi tiết thuế thu nhập cá nhân phải nộp
-            </h3>
-            <div class="detail-grid">
-                <div>
-                    <h4 style="text-align:center; margin-top:0; color:var(--warning)">Biểu thuế 7 bậc (Cũ)</h4>
-                    <table class="tax-table">
-                        <thead>
-                            <tr>
-                                <th>Mức chịu thuế</th>
-                                <th>Thuế suất</th>
-                                <th>Tiền thuế</th>
-                            </tr>
-                        </thead>
-                        <tbody id="detailTableOld"></tbody>
-                    </table>
-                </div>
-
-                <div>
-                    <h4 style="text-align:center; margin-top:0; color:var(--success)">Biểu thuế 5 bậc (Mới)</h4>
-                    <table class="tax-table">
-                        <thead>
-                            <tr>
-                                <th>Mức chịu thuế</th>
-                                <th>Thuế suất</th>
-                                <th>Tiền thuế</th>
-                            </tr>
-                        </thead>
-                        <tbody id="detailTableNew"></tbody>
-                    </table>
-                </div>
+          <h3
+            style="
+              text-align: center;
+              font-size: 1.1em;
+              margin-bottom: 15px;
+              color: #444;
+            "
+          >
+            Chi tiết thuế thu nhập cá nhân phải nộp
+          </h3>
+          <div class="detail-grid">
+            <div>
+              <h4
+                style="text-align: center; margin-top: 0; color: var(--warning)"
+              >
+                Biểu thuế 7 bậc (Cũ)
+              </h4>
+              <table class="tax-table">
+                <thead>
+                  <tr>
+                    <th>Mức chịu thuế</th>
+                    <th>Thuế suất</th>
+                    <th>Tiền thuế</th>
+                  </tr>
+                </thead>
+                <tbody id="detailTableOld"></tbody>
+              </table>
             </div>
+
+            <div>
+              <h4
+                style="text-align: center; margin-top: 0; color: var(--success)"
+              >
+                Biểu thuế 5 bậc (Mới)
+              </h4>
+              <table class="tax-table">
+                <thead>
+                  <tr>
+                    <th>Mức chịu thuế</th>
+                    <th>Thuế suất</th>
+                    <th>Tiền thuế</th>
+                  </tr>
+                </thead>
+                <tbody id="detailTableNew"></tbody>
+              </table>
+            </div>
+          </div>
         </div>
+      </div>
+
+      <div class="note">
+        <strong>Thông tin thay đổi (Dự kiến áp dụng từ 2026):</strong><br />
+        - Giảm trừ bản thân: 11 triệu ➔ <strong>15.5 triệu</strong>.<br />
+        - Giảm trừ người phụ thuộc: 4.4 triệu ➔
+        <strong>6.2 triệu</strong>.<br />
+        - Biểu thuế lũy tiến: 7 bậc ➔ <strong>5 bậc</strong> (Giãn khoảng cách
+        các bậc thuế).<br />
+        - Mức lương cơ sở (để tính trần BHXH/BHYT): Tạm tính 2.340.000đ (có thể
+        thay đổi).
+      </div>
+
+      <div class="credit">
+        <p>
+          Được tạo bởi <strong>Le Son Tung</strong> |
+          <a href="https://www.linkedin.com/in/tobyle96/" target="_blank"
+            >LinkedIn</a
+          >
+          | <a href="tip.html">Buy me a coffee ☕</a>
+        </p>
+      </div>
     </div>
 
-    <div class="note">
-      <strong>Thông tin thay đổi (Dự kiến áp dụng từ 2026):</strong><br />
-      - Giảm trừ bản thân: 11 triệu ➔ <strong>15.5 triệu</strong>.<br />
-      - Giảm trừ người phụ thuộc: 4.4 triệu ➔
-      <strong>6.2 triệu</strong>.<br />
-      - Biểu thuế lũy tiến: 7 bậc ➔ <strong>5 bậc</strong> (Giãn khoảng cách
-      các bậc thuế).<br />
-      - Mức lương cơ sở (để tính trần BHXH/BHYT): Tạm tính 2.340.000đ (có thể
-      thay đổi).
-    </div>
-
-</div>
-
-<script>
-    const CONFIG = {
-        baseSalary: 2340000, 
+    <script>
+      const CONFIG = {
+        baseSalary: 2340000,
         insurance: {
-            bhxh: 0.08, bhyt: 0.015, bhtn: 0.01,
-            maxBHXH_BHYT: 20, maxBHTN: 20 
+          bhxh: 0.08,
+          bhyt: 0.015,
+          bhtn: 0.01,
+          maxBHXH_BHYT: 20,
+          maxBHTN: 20,
         },
         old: {
-            selfDeduction: 11000000,
-            depDeduction: 4400000,
-            taxBrackets: [
-                { max: 5000000, rate: 0.05 },
-                { max: 10000000, rate: 0.10 },
-                { max: 18000000, rate: 0.15 },
-                { max: 32000000, rate: 0.20 },
-                { max: 52000000, rate: 0.25 },
-                { max: 80000000, rate: 0.30 },
-                { max: Infinity, rate: 0.35 }
-            ]
+          selfDeduction: 11000000,
+          depDeduction: 4400000,
+          taxBrackets: [
+            { max: 5000000, rate: 0.05 },
+            { max: 10000000, rate: 0.1 },
+            { max: 18000000, rate: 0.15 },
+            { max: 32000000, rate: 0.2 },
+            { max: 52000000, rate: 0.25 },
+            { max: 80000000, rate: 0.3 },
+            { max: Infinity, rate: 0.35 },
+          ],
         },
         new: {
-            selfDeduction: 15500000, 
-            depDeduction: 6200000,   
-            taxBrackets: [
-                { max: 10000000, rate: 0.05 },  
-                { max: 30000000, rate: 0.10 },  
-                { max: 60000000, rate: 0.20 },  
-                { max: 100000000, rate: 0.30 }, 
-                { max: Infinity, rate: 0.35 }   
-            ]
-        }
-    };
+          selfDeduction: 15500000,
+          depDeduction: 6200000,
+          taxBrackets: [
+            { max: 10000000, rate: 0.05 },
+            { max: 30000000, rate: 0.1 },
+            { max: 60000000, rate: 0.2 },
+            { max: 100000000, rate: 0.3 },
+            { max: Infinity, rate: 0.35 },
+          ],
+        },
+      };
 
-    function formatCurrency(num) {
-        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND', maximumFractionDigits: 0 }).format(num);
-    }
+      function formatCurrency(num) {
+        return new Intl.NumberFormat("vi-VN", {
+          style: "currency",
+          currency: "VND",
+          maximumFractionDigits: 0,
+        }).format(num);
+      }
 
-    // Hàm tính thuế trả về cả Tổng và Chi tiết từng bậc
-    function calculateTaxDetailed(taxableIncome, brackets) {
+      // Hàm tính thuế trả về cả Tổng và Chi tiết từng bậc
+      function calculateTaxDetailed(taxableIncome, brackets) {
         let details = [];
         let totalTax = 0;
-        
+
         if (taxableIncome <= 0) {
-            return { totalTax: 0, details: [] };
+          return { totalTax: 0, details: [] };
         }
 
         let currentIncome = taxableIncome;
         let previousMax = 0;
 
         for (let i = 0; i < brackets.length; i++) {
-            const bracket = brackets[i];
-            const rangeWidth = bracket.max - previousMax;
-            let incomeInThisBracket = 0;
-            let taxInThisBracket = 0;
+          const bracket = brackets[i];
+          const rangeWidth = bracket.max - previousMax;
+          let incomeInThisBracket = 0;
+          let taxInThisBracket = 0;
 
-            // Xác định phần thu nhập nằm trong bậc này
-            if (currentIncome > 0) {
-                if (bracket.max === Infinity) {
-                    incomeInThisBracket = currentIncome;
-                } else if (currentIncome >= rangeWidth) {
-                    incomeInThisBracket = rangeWidth;
-                } else {
-                    incomeInThisBracket = currentIncome;
-                }
-            }
-
-            // Tính thuế bậc này
-            taxInThisBracket = incomeInThisBracket * bracket.rate;
-            
-            // Trừ phần thu nhập đã tính để sang bậc sau
-            currentIncome -= incomeInThisBracket;
-
-            // Lưu chi tiết nếu có phát sinh thuế hoặc muốn hiện bậc 0 đồng
-            let label = "";
+          // Xác định phần thu nhập nằm trong bậc này
+          if (currentIncome > 0) {
             if (bracket.max === Infinity) {
-                label = `Trên ${previousMax/1000000} tr`;
+              incomeInThisBracket = currentIncome;
+            } else if (currentIncome >= rangeWidth) {
+              incomeInThisBracket = rangeWidth;
             } else {
-                label = `${previousMax/1000000} - ${bracket.max/1000000} tr`;
+              incomeInThisBracket = currentIncome;
             }
+          }
 
-            details.push({
-                label: label,
-                rate: (bracket.rate * 100).toFixed(0) + "%",
-                taxAmount: taxInThisBracket,
-                isActive: incomeInThisBracket > 0
-            });
+          // Tính thuế bậc này
+          taxInThisBracket = incomeInThisBracket * bracket.rate;
 
-            totalTax += taxInThisBracket;
-            previousMax = bracket.max;
+          // Trừ phần thu nhập đã tính để sang bậc sau
+          currentIncome -= incomeInThisBracket;
 
-            // Nếu hết thu nhập để tính thì break (hoặc giữ chạy để in dòng trống nếu muốn)
-            if (currentIncome < 0) currentIncome = 0;
+          // Lưu chi tiết nếu có phát sinh thuế hoặc muốn hiện bậc 0 đồng
+          let label = "";
+          if (bracket.max === Infinity) {
+            label = `Trên ${previousMax / 1000000} tr`;
+          } else {
+            label = `${previousMax / 1000000} - ${bracket.max / 1000000} tr`;
+          }
+
+          details.push({
+            label: label,
+            rate: (bracket.rate * 100).toFixed(0) + "%",
+            taxAmount: taxInThisBracket,
+            isActive: incomeInThisBracket > 0,
+          });
+
+          totalTax += taxInThisBracket;
+          previousMax = bracket.max;
+
+          // Nếu hết thu nhập để tính thì break (hoặc giữ chạy để in dòng trống nếu muốn)
+          if (currentIncome < 0) currentIncome = 0;
         }
         return { totalTax, details };
-    }
+      }
 
-    function getNetFromGross(gross, insuranceSalaryInput, dependents, regionMinSalary, configType) {
+      function getNetFromGross(
+        gross,
+        insuranceSalaryInput,
+        dependents,
+        regionMinSalary,
+        configType
+      ) {
         const cfg = CONFIG[configType];
-        
+
         // Bảo hiểm
         let insSalary = insuranceSalaryInput > 0 ? insuranceSalaryInput : gross;
         const maxInsSalary = CONFIG.baseSalary * CONFIG.insurance.maxBHXH_BHYT;
@@ -348,76 +537,109 @@
         const maxBHTNSalary = regionMinSalary * CONFIG.insurance.maxBHTN;
         const salaryForBHTN = Math.min(insSalary, maxBHTNSalary);
 
-        const totalInsurance = (salaryForBHXH * (CONFIG.insurance.bhxh + CONFIG.insurance.bhyt)) + (salaryForBHTN * CONFIG.insurance.bhtn);
+        const totalInsurance =
+          salaryForBHXH * (CONFIG.insurance.bhxh + CONFIG.insurance.bhyt) +
+          salaryForBHTN * CONFIG.insurance.bhtn;
 
         // Thu nhập tính thuế
         const incomeBeforeTax = gross - totalInsurance;
-        const totalDeduction = cfg.selfDeduction + (dependents * cfg.depDeduction);
+        const totalDeduction =
+          cfg.selfDeduction + dependents * cfg.depDeduction;
         const taxableIncome = Math.max(0, incomeBeforeTax - totalDeduction);
 
         // Tính thuế chi tiết
         const taxData = calculateTaxDetailed(taxableIncome, cfg.taxBrackets);
 
         return {
-            gross, 
-            net: gross - totalInsurance - taxData.totalTax, 
-            totalInsurance, 
-            tax: taxData.totalTax, 
-            taxDetails: taxData.details,
-            taxableIncome, 
-            totalDeduction
+          gross,
+          net: gross - totalInsurance - taxData.totalTax,
+          totalInsurance,
+          tax: taxData.totalTax,
+          taxDetails: taxData.details,
+          taxableIncome,
+          totalDeduction,
         };
-    }
+      }
 
-    function getGrossFromNet(targetNet, insuranceSalaryInput, dependents, regionMinSalary, configType) {
+      function getGrossFromNet(
+        targetNet,
+        insuranceSalaryInput,
+        dependents,
+        regionMinSalary,
+        configType
+      ) {
         let lower = targetNet;
-        let upper = targetNet * 2.5; 
+        let upper = targetNet * 2.5;
         let gross = targetNet;
         let loopCount = 0;
 
         // Binary Search tìm Gross
         while (loopCount < 100) {
-            gross = (lower + upper) / 2;
-            const res = getNetFromGross(gross, insuranceSalaryInput, dependents, regionMinSalary, configType);
-            
-            if (Math.abs(res.net - targetNet) < 50) return res;
+          gross = (lower + upper) / 2;
+          const res = getNetFromGross(
+            gross,
+            insuranceSalaryInput,
+            dependents,
+            regionMinSalary,
+            configType
+          );
 
-            if (res.net < targetNet) lower = gross;
-            else upper = gross;
-            
-            loopCount++;
+          if (Math.abs(res.net - targetNet) < 50) return res;
+
+          if (res.net < targetNet) lower = gross;
+          else upper = gross;
+
+          loopCount++;
         }
-        return getNetFromGross(gross, insuranceSalaryInput, dependents, regionMinSalary, configType);
-    }
+        return getNetFromGross(
+          gross,
+          insuranceSalaryInput,
+          dependents,
+          regionMinSalary,
+          configType
+        );
+      }
 
-    function renderResult(data, elementId) {
+      function renderResult(data, elementId) {
         const html = `
-            <div class="row"><span>Lương Gross:</span> <strong>${formatCurrency(data.gross)}</strong></div>
-            <div class="row"><span>Bảo hiểm (10.5%):</span> <span>-${formatCurrency(data.totalInsurance)}</span></div>
-            <div class="row"><span>Giảm trừ gia cảnh:</span> <span>${formatCurrency(data.totalDeduction)}</span></div>
-            <div class="row"><span>Thu nhập tính thuế:</span> <span>${formatCurrency(data.taxableIncome)}</span></div>
-            <div class="row"><span>Thuế TNCN:</span> <span style="color:var(--danger)">-${formatCurrency(data.tax)}</span></div>
-            <div class="row highlight"><span>Lương Net:</span> <span>${formatCurrency(data.net)}</span></div>
+            <div class="row"><span>Lương Gross:</span> <strong>${formatCurrency(
+              data.gross
+            )}</strong></div>
+            <div class="row"><span>Bảo hiểm (10.5%):</span> <span>-${formatCurrency(
+              data.totalInsurance
+            )}</span></div>
+            <div class="row"><span>Giảm trừ gia cảnh:</span> <span>${formatCurrency(
+              data.totalDeduction
+            )}</span></div>
+            <div class="row"><span>Thu nhập tính thuế:</span> <span>${formatCurrency(
+              data.taxableIncome
+            )}</span></div>
+            <div class="row"><span>Thuế TNCN:</span> <span style="color:var(--danger)">-${formatCurrency(
+              data.tax
+            )}</span></div>
+            <div class="row highlight"><span>Lương Net:</span> <span>${formatCurrency(
+              data.net
+            )}</span></div>
         `;
         document.getElementById(elementId).innerHTML = html;
-    }
+      }
 
-    function renderDetailTable(details, elementId) {
-        let html = '';
+      function renderDetailTable(details, elementId) {
+        let html = "";
         let totalCheck = 0;
-        details.forEach(row => {
-            const rowClass = row.isActive ? '' : 'empty-row';
-            const money = row.isActive ? formatCurrency(row.taxAmount) : '-';
-            html += `
+        details.forEach((row) => {
+          const rowClass = row.isActive ? "" : "empty-row";
+          const money = row.isActive ? formatCurrency(row.taxAmount) : "-";
+          html += `
                 <tr class="${rowClass}">
                     <td>${row.label}</td>
                     <td>${row.rate}</td>
                     <td>${money}</td>
                 </tr>
             `;
-            totalCheck += row.taxAmount;
+          totalCheck += row.taxAmount;
         });
-        
+
         // Dòng tổng cộng
         html += `
             <tr style="background:#f9fafb">
@@ -426,50 +648,77 @@
             </tr>
         `;
         document.getElementById(elementId).innerHTML = html;
-    }
+      }
 
-    function calculate(mode) {
-        const income = parseFloat(document.getElementById('income').value) || 0;
-        const dependents = parseInt(document.getElementById('dependents').value) || 0;
-        const insuranceSalary = parseFloat(document.getElementById('insuranceSalary').value) || 0; 
-        const regionMinSalary = parseFloat(document.getElementById('region').value);
+      function calculate(mode) {
+        const income = parseFloat(document.getElementById("income").value) || 0;
+        const dependents =
+          parseInt(document.getElementById("dependents").value) || 0;
+        const insuranceSalary =
+          parseFloat(document.getElementById("insuranceSalary").value) || 0;
+        const regionMinSalary = parseFloat(
+          document.getElementById("region").value
+        );
 
         let resOld, resNew;
 
-        if (mode === 'gross2net') {
-            resOld = getNetFromGross(income, insuranceSalary, dependents, regionMinSalary, 'old');
-            resNew = getNetFromGross(income, insuranceSalary, dependents, regionMinSalary, 'new');
+        if (mode === "gross2net") {
+          resOld = getNetFromGross(
+            income,
+            insuranceSalary,
+            dependents,
+            regionMinSalary,
+            "old"
+          );
+          resNew = getNetFromGross(
+            income,
+            insuranceSalary,
+            dependents,
+            regionMinSalary,
+            "new"
+          );
         } else {
-            resOld = getGrossFromNet(income, insuranceSalary, dependents, regionMinSalary, 'old');
-            resNew = getGrossFromNet(income, insuranceSalary, dependents, regionMinSalary, 'new');
+          resOld = getGrossFromNet(
+            income,
+            insuranceSalary,
+            dependents,
+            regionMinSalary,
+            "old"
+          );
+          resNew = getGrossFromNet(
+            income,
+            insuranceSalary,
+            dependents,
+            regionMinSalary,
+            "new"
+          );
         }
 
         // Render Summary
-        document.getElementById('resultsArea').style.display = 'grid';
-        renderResult(resOld, 'outputOld');
-        renderResult(resNew, 'outputNew');
+        document.getElementById("resultsArea").style.display = "grid";
+        renderResult(resOld, "outputOld");
+        renderResult(resNew, "outputNew");
 
         // Render Details (Hidden by default)
-        document.getElementById('detailWrapper').style.display = 'block';
+        document.getElementById("detailWrapper").style.display = "block";
         // Reset toggle to closed when recalculating? Optional. Let's keep current state or reset.
-        // document.getElementById('detailSection').style.display = 'none'; 
-        
-        renderDetailTable(resOld.taxDetails, 'detailTableOld');
-        renderDetailTable(resNew.taxDetails, 'detailTableNew');
-    }
+        // document.getElementById('detailSection').style.display = 'none';
 
-    function toggleDetails() {
-        const section = document.getElementById('detailSection');
-        const btn = document.querySelector('.detail-toggle-btn');
-        if (section.style.display === 'none' || section.style.display === '') {
-            section.style.display = 'block';
-            btn.innerHTML = '▲ Đóng bảng chi tiết';
+        renderDetailTable(resOld.taxDetails, "detailTableOld");
+        renderDetailTable(resNew.taxDetails, "detailTableNew");
+      }
+
+      function toggleDetails() {
+        const section = document.getElementById("detailSection");
+        const btn = document.querySelector(".detail-toggle-btn");
+        if (section.style.display === "none" || section.style.display === "") {
+          section.style.display = "block";
+          btn.innerHTML = "▲ Đóng bảng chi tiết";
         } else {
-            section.style.display = 'none';
-            btn.innerHTML = '▼ Xem chi tiết các bước tính thuế';
+          section.style.display = "none";
+          btn.innerHTML = "▼ Xem chi tiết các bước tính thuế";
         }
-    }
-</script>
-
-</body>
+      }
+    </script>
+  </body>
 </html>

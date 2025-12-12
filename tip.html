@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buy me a coffee ☕</title>
+    <style>
+      :root {
+        --primary: #2563eb;
+        --bg: #f3f4f6;
+        --white: #ffffff;
+        --text: #1f2937;
+        --border: #e5e7eb;
+        --success: #10b981;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background: var(--white);
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        text-align: center;
+      }
+
+      h1 {
+        color: var(--primary);
+        margin-bottom: 10px;
+        font-size: 1.8em;
+      }
+
+      .subtitle {
+        color: #666;
+        margin-bottom: 30px;
+        font-size: 1.1em;
+      }
+
+      .coffee-icon {
+        font-size: 4em;
+        margin: 20px 0;
+      }
+
+      .message {
+        background: #fffbeb;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 30px 0;
+        border-left: 4px solid var(--success);
+        text-align: left;
+      }
+
+      .qr-section {
+        margin: 30px 0;
+      }
+
+      .qr-code {
+        width: 250px;
+        height: 250px;
+        margin: 20px auto;
+        border: 2px solid var(--border);
+        border-radius: 8px;
+        background: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #999;
+        font-size: 0.9em;
+      }
+
+      .qr-code img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 6px;
+      }
+
+      .bank-info {
+        background: #f8fafc;
+        padding: 25px;
+        border-radius: 8px;
+        margin: 20px 0;
+        text-align: left;
+      }
+
+      .bank-info-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px dashed var(--border);
+      }
+
+      .bank-info-row:last-child {
+        border-bottom: none;
+      }
+
+      .bank-info-label {
+        font-weight: 600;
+        color: #555;
+        min-width: 150px;
+      }
+
+      .bank-info-value {
+        color: var(--text);
+        text-align: right;
+        flex: 1;
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-top: 30px;
+        padding: 10px 20px;
+        background: var(--primary);
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        transition: opacity 0.2s;
+      }
+
+      .back-link:hover {
+        opacity: 0.9;
+      }
+
+      .note {
+        font-size: 0.85em;
+        color: #666;
+        margin-top: 20px;
+        font-style: italic;
+      }
+
+      .message p {
+        margin: 0;
+        font-size: 1.05em;
+      }
+
+      .qr-section h3 {
+        margin-bottom: 15px;
+        color: var(--primary);
+      }
+
+      .bank-info h3 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        text-align: center;
+        color: var(--primary);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="coffee-icon">☕</div>
+      <h1>Cảm ơn bạn đã ủng hộ!</h1>
+      <p class="subtitle">
+        Nếu bạn thấy công cụ này hữu ích, hãy mua cho tôi một ly cà phê nhé 😊
+      </p>
+
+      <div class="message">
+        <p>
+          Mọi đóng góp của bạn sẽ giúp tôi tiếp tục phát triển và cải thiện các
+          công cụ miễn phí này. Cảm ơn bạn rất nhiều! 🙏
+        </p>
+      </div>
+
+      <div class="qr-section">
+        <h3>Quét mã QR để chuyển khoản</h3>
+        <div class="qr-code">
+          <img src="./images/qr-code.png" alt="QR Code chuyển khoản" />
+        </div>
+      </div>
+
+      <div class="bank-info">
+        <h3>Thông tin chuyển khoản</h3>
+        <div class="bank-info-row">
+          <span class="bank-info-label">Tên ngân hàng:</span>
+          <span class="bank-info-value">Techcombank</span>
+        </div>
+        <div class="bank-info-row">
+          <span class="bank-info-label">Số tài khoản:</span>
+          <span class="bank-info-value"><strong>1619 1119 96</strong></span>
+        </div>
+        <div class="bank-info-row">
+          <span class="bank-info-label">Chủ tài khoản:</span>
+          <span class="bank-info-value"><strong>LE SON TUNG</strong></span>
+        </div>
+      </div>
+
+      <a href="index.html" class="back-link">← Quay lại trang chính</a>
+    </div>
+  </body>
+</html>
