@@ -81,6 +81,7 @@
       }
 
       input[type="number"],
+      input[type="text"],
       select {
         padding: 10px;
         border: 1px solid var(--border);
@@ -311,9 +312,9 @@
         <div class="form-group">
           <label>Thu nhập (VND)</label>
           <input
-            type="number"
+            type="text"
             id="income"
-            value="30000000"
+            value="30.000.000"
             placeholder="Nhập số tiền..."
           />
         </div>
@@ -485,6 +486,15 @@
           currency: "VND",
           maximumFractionDigits: 0,
         }).format(num);
+      }
+
+      function formatNumberWithSeparator(num) {
+        return new Intl.NumberFormat("vi-VN").format(num);
+      }
+
+      function parseFormattedNumber(str) {
+        // Remove both dots and commas (Vietnamese uses dots, international uses commas)
+        return parseFloat(str.replace(/[.,]/g, "")) || 0;
       }
 
       // Hàm tính thuế trả về cả Tổng và Chi tiết từng bậc
@@ -676,7 +686,7 @@
       }
 
       function calculate(mode) {
-        const income = parseFloat(document.getElementById("income").value) || 0;
+        const income = parseFormattedNumber(document.getElementById("income").value);
         const dependents =
           parseInt(document.getElementById("dependents").value) || 0;
         const insuranceSalary =
@@ -744,6 +754,37 @@
           btn.innerHTML = "▼ Xem chi tiết các bước tính thuế";
         }
       }
+
+      // Format income input with thousand separators
+      document.addEventListener("DOMContentLoaded", function () {
+        const incomeInput = document.getElementById("income");
+        
+        incomeInput.addEventListener("input", function (e) {
+          // Remove both dots and commas before processing
+          let value = e.target.value.replace(/[.,]/g, "");
+          
+          // Only allow numbers
+          if (!/^\d*$/.test(value)) {
+            value = value.replace(/\D/g, "");
+          }
+          
+          // Format with thousand separators
+          if (value) {
+            const numValue = parseFloat(value);
+            e.target.value = formatNumberWithSeparator(numValue);
+          } else {
+            e.target.value = "";
+          }
+        });
+
+        // Format on blur to ensure proper formatting even if user pastes
+        incomeInput.addEventListener("blur", function (e) {
+          const value = parseFormattedNumber(e.target.value);
+          if (value > 0) {
+            e.target.value = formatNumberWithSeparator(value);
+          }
+        });
+      });
     </script>
   </body>
 </html>
