@@ -3,7 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Buy me a coffee ☕</title>
+    <title>Ủng Hộ Tác Giả - Buy Me a Coffee | Tính Lương Gross Net 2026</title>
+    <meta name="description" content="Nếu bạn thấy công cụ tính lương Gross Net 2026 hữu ích, hãy ủng hộ tác giả bằng cách mua một ly cà phê. Mọi đóng góp giúp phát triển các công cụ miễn phí." />
+    <meta name="keywords" content="buy me a coffee, ủng hộ tác giả, donate, tính lương gross net 2026, công cụ miễn phí" />
+    <meta name="author" content="Le Son Tung" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Ủng Hộ Tác Giả - Buy Me a Coffee | Tính Lương Gross Net 2026" />
+    <meta property="og:description" content="Nếu bạn thấy công cụ tính lương Gross Net 2026 hữu ích, hãy ủng hộ tác giả bằng cách mua một ly cà phê." />
+    <meta property="og:locale" content="vi_VN" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Ủng Hộ Tác Giả - Buy Me a Coffee" />
+    <meta name="twitter:description" content="Nếu bạn thấy công cụ tính lương Gross Net 2026 hữu ích, hãy ủng hộ tác giả." />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://tinhluongnet.vn/tip.html" />
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Ủng Hộ Tác Giả - Buy Me a Coffee",
+      "description": "Trang ủng hộ tác giả công cụ tính lương Gross Net 2026",
+      "url": "https://tinhluongnet.vn/tip.html",
+      "mainEntity": {
+        "@type": "Person",
+        "name": "Le Son Tung",
+        "url": "https://www.linkedin.com/in/tobyle96/"
+      }
+    }
+    </script>
     <style>
       :root {
         --primary: #2563eb;
@@ -34,7 +68,7 @@
         margin: 0 auto;
         background: var(--white);
         border-radius: 12px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        border: 1px solid var(--border);
         text-align: center;
         padding: 20px;
       }
@@ -154,16 +188,18 @@
         font-size: 1.05em;
       }
 
-      .qr-section h3 {
+      .qr-section h2 {
         margin-bottom: 15px;
         color: var(--primary);
+        font-size: 1.3em;
       }
 
-      .bank-info h3 {
+      .bank-info h2 {
         margin-top: 0;
         margin-bottom: 20px;
         text-align: center;
         color: var(--primary);
+        font-size: 1.3em;
       }
     </style>
     <!-- Google tag (gtag.js) -->
@@ -178,7 +214,7 @@
   </head>
   <body>
     <div class="container">
-      <div class="coffee-icon">☕</div>
+      <div class="coffee-icon" aria-hidden="true">☕</div>
       <h1>Cảm ơn bạn đã ủng hộ!</h1>
       <p class="subtitle">
         Nếu bạn thấy công cụ này hữu ích, hãy mua cho tôi một ly cà phê nhé 😊
@@ -191,15 +227,15 @@
         </p>
       </div>
 
-      <div class="qr-section">
-        <h3>Quét mã QR để chuyển khoản</h3>
+      <section class="qr-section" aria-labelledby="qr-heading">
+        <h2 id="qr-heading">Quét mã QR để chuyển khoản</h2>
         <div class="qr-code">
-          <img src="./images/qr-code.png" alt="QR Code chuyển khoản" />
+          <img src="./images/qr-code.png" alt="QR Code chuyển khoản ngân hàng Techcombank" width="250" height="250" />
         </div>
-      </div>
+      </section>
 
-      <div class="bank-info">
-        <h3>Thông tin chuyển khoản</h3>
+      <section class="bank-info" aria-labelledby="bank-heading">
+        <h2 id="bank-heading">Thông tin chuyển khoản</h2>
         <div class="bank-info-row">
           <span class="bank-info-label">Tên ngân hàng:</span>
           <span class="bank-info-value">Techcombank</span>
@@ -212,7 +248,7 @@
           <span class="bank-info-label">Chủ tài khoản:</span>
           <span class="bank-info-value"><strong>LE SON TUNG</strong></span>
         </div>
-      </div>
+      </section>
 
       <a href="index.html" class="back-link">← Quay lại trang chính</a>
     </div>
