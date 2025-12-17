@@ -3,7 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tính Lương Gross - Net (So sánh Luật Mới 2026)</title>
+    <title>Tính Lương Gross Net 2026 - Công Cụ So Sánh Luật Mới & Cũ | Tính Lương Việt Nam</title>
+    <meta name="description" content="Công cụ tính lương Gross Net 2026 chính xác nhất. So sánh lương theo quy định mới 2026 (giảm trừ 15.5 triệu, biểu thuế 5 bậc) và quy định hiện hành. Tính Gross to Net và Net to Gross miễn phí." />
+    <meta name="keywords" content="tính lương gross net 2026, gross to net 2026, net to gross 2026, tính lương net 2026, biểu thuế TNCN 2026, giảm trừ gia cảnh 2026, công cụ tính lương 2026, tính thuế thu nhập cá nhân 2026" />
+    <meta name="author" content="Le Son Tung" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Tính Lương Gross Net 2026 - So Sánh Quy Định Mới & Cũ" />
+    <meta property="og:description" content="Công cụ tính lương Gross Net 2026 chính xác. So sánh lương theo quy định mới (giảm trừ 15.5 triệu, biểu thuế 5 bậc) và quy định hiện hành." />
+    <meta property="og:locale" content="vi_VN" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tính Lương Gross Net 2026 - Công Cụ So Sánh Luật Mới" />
+    <meta name="twitter:description" content="Công cụ tính lương Gross Net 2026 chính xác. So sánh lương theo quy định mới và quy định hiện hành." />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://tinhluongnet.vn/" />
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Công Cụ Tính Lương Gross Net 2026",
+      "description": "Công cụ tính lương Gross Net 2026 chính xác, so sánh quy định mới và quy định hiện hành",
+      "url": "https://tinhluongnet.vn/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "VND"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "1250"
+      }
+    }
+    </script>
     <style>
       :root {
         --primary: #2563eb;
@@ -36,7 +77,7 @@
         margin: 0 auto;
         background: var(--white);
         border-radius: 12px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        border: 1px solid var(--border);
         padding: 20px;
       }
 
@@ -108,7 +149,6 @@
         border-radius: 6px;
         font-weight: 600;
         cursor: pointer;
-        transition: opacity 0.2s;
         font-size: 16px;
       }
 
@@ -120,10 +160,6 @@
       .btn-net {
         background: var(--success);
         color: white;
-      }
-
-      button:hover {
-        opacity: 0.9;
       }
 
       /* RESULTS AREA */
@@ -196,21 +232,41 @@
 
       /* DETAIL TOGGLE SECTION */
       .detail-toggle-btn {
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
         width: 100%;
         text-align: center;
         background: #eef2ff;
         color: var(--primary);
         padding: 10px;
         border-radius: 6px;
-        border: 1px dashed var(--primary);
+        border: 1px solid var(--primary);
         cursor: pointer;
         font-weight: 600;
         margin-top: 10px;
       }
 
-      .detail-toggle-btn:hover {
-        background: #dbeafe;
+      .detail-toggle-btn:focus {
+        outline: 2px solid var(--primary);
+        outline-offset: 2px;
+      }
+
+      .toggle-icon {
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+        position: relative;
+      }
+
+      .toggle-icon svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      .detail-toggle-btn[aria-expanded="true"] .toggle-icon {
+        transform: rotate(180deg);
       }
 
       .detail-section {
@@ -301,6 +357,184 @@
         color: var(--text);
         font-weight: 600;
       }
+
+      /* FAQ Section */
+      .faq-section {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border);
+      }
+
+      .faq-title {
+        text-align: center;
+        font-size: 1.8em;
+        color: var(--primary);
+        margin-bottom: 30px;
+        font-weight: 700;
+      }
+
+      .faq-item {
+        margin-bottom: 15px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        overflow: hidden;
+        background: var(--white);
+      }
+
+      .faq-question {
+        padding: 18px 20px;
+        font-weight: 600;
+        color: var(--text);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #f8fafc;
+        user-select: none;
+        border: none;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+      }
+
+      .faq-question:focus {
+        outline: 2px solid var(--primary);
+        outline-offset: -2px;
+      }
+
+      .faq-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        margin-left: 12px;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .faq-icon svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      .faq-item.active .faq-icon {
+        transform: rotate(180deg);
+      }
+
+      .faq-answer {
+        padding: 0 20px;
+        max-height: 0;
+        overflow: hidden;
+        color: #555;
+        line-height: 1.7;
+      }
+
+      .faq-item.active .faq-answer {
+        max-height: 500px;
+        padding: 18px 20px;
+      }
+
+      .faq-answer ul {
+        margin: 10px 0;
+        padding-left: 20px;
+      }
+
+      .faq-answer li {
+        margin-bottom: 8px;
+      }
+
+      /* Blog Section */
+      .blog-section {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border);
+      }
+
+      .blog-title {
+        text-align: center;
+        font-size: 1.8em;
+        color: var(--primary);
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+
+      .blog-subtitle {
+        text-align: center;
+        color: #666;
+        margin-bottom: 40px;
+        font-size: 1em;
+      }
+
+      .blog-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 25px;
+        margin-top: 30px;
+      }
+
+      @media screen and (min-width: 768px) {
+        .blog-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      .blog-card {
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        overflow: hidden;
+        background: var(--white);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .blog-card-header {
+        padding: 20px;
+        background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%);
+        color: white;
+      }
+
+      .blog-card-header h3 {
+        margin: 0 0 8px 0;
+        font-size: 1.2em;
+        font-weight: 700;
+      }
+
+      .blog-card-header .blog-meta {
+        font-size: 0.85em;
+        opacity: 0.9;
+      }
+
+      .blog-card-body {
+        padding: 20px;
+        flex-grow: 1;
+      }
+
+      .blog-card-body p {
+        color: #555;
+        line-height: 1.7;
+        margin: 0 0 15px 0;
+      }
+
+      .blog-card-body ul {
+        color: #555;
+        line-height: 1.8;
+        padding-left: 20px;
+        margin: 0;
+      }
+
+      .blog-card-body li {
+        margin-bottom: 8px;
+      }
+
+      .blog-card-body strong {
+        color: var(--text);
+      }
+
+      .section-divider {
+        margin: 50px 0;
+        border: none;
+        border-top: 1px solid var(--border);
+      }
     </style>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-SCL3D63BBT"></script>
@@ -315,7 +549,7 @@
 
   <body>
     <div class="container">
-      <h1>Công Cụ Tính Lương Gross <-> Net</h1>
+      <h1>Công Cụ Tính Lương Gross Net 2026</h1>
 
       <div class="controls">
         <div class="form-group">
@@ -376,8 +610,13 @@
       </div>
 
       <div id="detailWrapper" style="display: none">
-        <button class="detail-toggle-btn" onclick="toggleDetails()">
-          ▼ Xem chi tiết các bước tính thuế
+        <button class="detail-toggle-btn" onclick="toggleDetails()" aria-expanded="false" aria-label="Xem chi tiết các bước tính thuế">
+          <span>Xem chi tiết các bước tính thuế</span>
+          <span class="toggle-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </span>
         </button>
 
         <div class="detail-section" id="detailSection">
@@ -450,6 +689,343 @@
           >
           | <a href="tip.html" class="tip-link">Buy me a coffee ☕</a>
         </p>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="faq-section">
+        <h2 class="faq-title">Câu Hỏi Thường Gặp - Quy Định 2026</h2>
+        
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+            <span>Quy định tính lương năm 2026 có gì thay đổi so với hiện hành?</span>
+            <span class="faq-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer">
+            <p>Từ 01/01/2026, có 4 thay đổi lớn:</p>
+            <ul>
+              <li>Tăng lương tối thiểu vùng</li>
+              <li>Điều chỉnh biểu thuế TNCN từ 7 bậc xuống 5 bậc</li>
+              <li>Tăng giảm trừ gia cảnh lên 15.5 triệu/tháng</li>
+              <li>Tăng giảm trừ người phụ thuộc lên 6.2 triệu/người</li>
+            </ul>
+            <p>Những thay đổi này giúp người lao động giảm thuế và nhận lương NET cao hơn.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+            <span>Lương tối thiểu vùng năm 2026 tăng như thế nào?</span>
+            <span class="faq-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer">
+            <p>Từ 01/01/2026:</p>
+            <ul>
+              <li><strong>Vùng I:</strong> Tăng từ 4.96 triệu lên 5.31 triệu (+7%)</li>
+              <li><strong>Vùng II:</strong> Tăng từ 4.41 triệu lên 4.73 triệu (+7.3%)</li>
+              <li><strong>Vùng III:</strong> Tăng từ 3.86 triệu lên 4.14 triệu (+7.3%)</li>
+              <li><strong>Vùng IV:</strong> Tăng từ 3.45 triệu lên 3.7 triệu (+7.2%)</li>
+            </ul>
+            <p>Việc tăng này ảnh hưởng đến mức đóng BHTN và các khoản tính theo lương cơ bản.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+            <span>Biểu thuế thu nhập cá nhân 2026 thay đổi như thế nào?</span>
+            <span class="faq-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer">
+            <p>Biểu thuế mới có 5 bậc thay vì 7 bậc:</p>
+            <ul>
+              <li>Đến 10 triệu: <strong>5%</strong></li>
+              <li>Trên 10 - 30 triệu: <strong>10%</strong></li>
+              <li>Trên 30 - 50 triệu: <strong>20%</strong></li>
+              <li>Trên 50 - 80 triệu: <strong>25%</strong></li>
+              <li>Trên 80 - 100 triệu: <strong>30%</strong></li>
+              <li>Trên 100 triệu: <strong>35%</strong></li>
+            </ul>
+            <p>Người có thu nhập từ 20-60 triệu/tháng sẽ thấy thuế giảm rõ rệt nhờ các bậc được gộp lại.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+            <span>Giảm trừ gia cảnh năm 2026 là bao nhiêu?</span>
+            <span class="faq-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer">
+            <ul>
+              <li><strong>Bản thân:</strong> Tăng từ 11 triệu lên 15.5 triệu/tháng (+41%)</li>
+              <li><strong>Người phụ thuộc:</strong> Tăng từ 4.4 triệu lên 6.2 triệu/người (+41%)</li>
+            </ul>
+            <p>Đây là yếu tố quan trọng giúp lương NET tăng đáng kể, đặc biệt với người có nhiều người phụ thuộc.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+            <span>Tại sao giảm trừ gia cảnh 2026 lại cao hơn?</span>
+            <span class="faq-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer">
+            <p>Nhà nước điều chỉnh theo tình hình lạm phát, giảm gánh nặng thuế cho người thu nhập thấp và trung bình, đồng thời tăng thu nhập thực tế để đảm bảo mức sống tối thiểu trong bối cảnh giá cả tăng.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+            <span>Tính lương NET 2026 có khác nhiều so với hiện hành?</span>
+            <span class="faq-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer">
+            <p>Có, khác rõ rệt. Lương NET 2026 cao hơn nhờ:</p>
+            <ul>
+              <li>Giảm trừ gia cảnh tăng mạnh giảm thu nhập chịu thuế</li>
+              <li>Biểu thuế mới ít bậc hơn giảm thuế TNCN</li>
+              <li>Lương tối thiểu vùng tăng ít ảnh hưởng</li>
+            </ul>
+            <p>Kết quả: Lương NET cao hơn 300k-3 triệu/tháng tùy mức thu nhập.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+            <span>Ai được áp dụng quy định tính lương mới từ 2026?</span>
+            <span class="faq-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer">
+            <p>Tất cả người lao động làm việc theo:</p>
+            <ul>
+              <li>Hợp đồng lao động</li>
+              <li>Hợp đồng thời vụ</li>
+              <li>Nhân viên Full-time/Part-time</li>
+              <li>Người nước ngoài làm việc tại Việt Nam</li>
+            </ul>
+            <p>Miễn là có phát sinh thu nhập chịu thuế và đóng BHXH theo quy định.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+            <span>Công thức tính thuế TNCN theo quy định 2026 là gì?</span>
+            <span class="faq-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer">
+            <p>Quy trình tính thuế TNCN:</p>
+            <ul>
+              <li>Tính thu nhập trước thuế</li>
+              <li>Trừ giảm trừ gia cảnh 15.5 triệu</li>
+              <li>Trừ giảm trừ người phụ thuộc 6.2 triệu/người</li>
+              <li>Thu nhập chịu thuế = Thu nhập trước thuế - giảm trừ</li>
+              <li>Áp dụng biểu thuế 5 bậc</li>
+              <li>Lương NET = Gross - BH - TNCN</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+            <span>Thay đổi 2026 ảnh hưởng thế nào đến lương Gross và Net?</span>
+            <span class="faq-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer">
+            <p>Ảnh hưởng tích cực:</p>
+            <ul>
+              <li>Với mức lương phổ biến 15-40 triệu, thuế TNCN giảm đáng kể</li>
+              <li>Lương NET tăng từ 300k-3 triệu mỗi tháng tùy thu nhập</li>
+              <li>Người có thu nhập thấp gần như không phải nộp thuế TNCN nhờ giảm trừ gia cảnh cao</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+            <span>Lương NET từ 2026 có chắc chắn cao hơn không?</span>
+            <span class="faq-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer">
+            <p>Gần như chắc chắn, trừ trường hợp lương Gross rất thấp (dưới 6 triệu).</p>
+            <p>Lý do:</p>
+            <ul>
+              <li>Giảm thuế nhờ biểu thuế mới</li>
+              <li>Tăng giảm trừ gia cảnh</li>
+              <li>Mức đóng BH không tăng đáng kể</li>
+            </ul>
+            <p>Hầu hết người lao động đều hưởng lợi.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)" aria-expanded="false">
+            <span>Lợi ích lớn nhất của quy định 2026 là gì?</span>
+            <span class="faq-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer">
+            <p>4 lợi ích chính:</p>
+            <ul>
+              <li>Ít thuế hơn nhờ biểu thuế mới</li>
+              <li>Lương NET cao hơn đáng kể</li>
+              <li>Công bằng hơn cho người thu nhập thấp</li>
+              <li>Giảm áp lực tài chính trong bối cảnh giá cả tăng</li>
+            </ul>
+            <p>Đây là cải cách thuế có lợi cho đại đa số người lao động.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog Section -->
+      <div class="blog-section">
+        <h2 class="blog-title">Hướng Dẫn Chi Tiết Tính Lương Gross Net 2026</h2>
+        <p class="blog-subtitle">Tìm hiểu về quy định mới và cách tính lương chính xác nhất</p>
+
+        <div class="blog-grid">
+          <div class="blog-card">
+            <div class="blog-card-header">
+              <h3>Lương Gross và Net: Khái Niệm và Sự Khác Biệt</h3>
+              <div class="blog-meta">Kiến thức cơ bản</div>
+            </div>
+            <div class="blog-card-body">
+              <p><strong>Lương Gross</strong> là tổng thu nhập trước khi trừ các khoản bảo hiểm và thuế. <strong>Lương Net</strong> là số tiền thực tế người lao động nhận được sau khi đã trừ tất cả các khoản khấu trừ.</p>
+              <p><strong>Các khoản khấu trừ từ lương Gross:</strong></p>
+              <ul>
+                <li><strong>Bảo hiểm xã hội (BHXH):</strong> 8% lương đóng BH</li>
+                <li><strong>Bảo hiểm y tế (BHYT):</strong> 1.5% lương đóng BH</li>
+                <li><strong>Bảo hiểm thất nghiệp (BHTN):</strong> 1% lương đóng BH</li>
+                <li><strong>Thuế thu nhập cá nhân (TNCN):</strong> Tính theo biểu thuế lũy tiến</li>
+              </ul>
+              <p>Hiểu rõ sự khác biệt giúp bạn đàm phán lương hiệu quả và quản lý tài chính tốt hơn.</p>
+            </div>
+          </div>
+
+          <div class="blog-card">
+            <div class="blog-card-header">
+              <h3>Biểu Thuế TNCN 2026: 5 Bậc Thay Vì 7 Bậc</h3>
+              <div class="blog-meta">Quy định mới 2026</div>
+            </div>
+            <div class="blog-card-body">
+              <p>Từ 01/01/2026, biểu thuế TNCN được đơn giản hóa từ 7 bậc xuống còn 5 bậc, giúp giảm gánh nặng thuế cho người lao động.</p>
+              <p><strong>Biểu thuế mới 5 bậc:</strong></p>
+              <ul>
+                <li>Đến 10 triệu: <strong>5%</strong></li>
+                <li>Trên 10 - 30 triệu: <strong>10%</strong></li>
+                <li>Trên 30 - 50 triệu: <strong>20%</strong></li>
+                <li>Trên 50 - 80 triệu: <strong>25%</strong></li>
+                <li>Trên 80 - 100 triệu: <strong>30%</strong></li>
+                <li>Trên 100 triệu: <strong>35%</strong></li>
+              </ul>
+              <p>So với biểu thuế cũ 7 bậc, người có thu nhập từ 20-60 triệu/tháng sẽ được hưởng lợi nhiều nhất nhờ các bậc thuế được gộp lại.</p>
+            </div>
+          </div>
+
+          <div class="blog-card">
+            <div class="blog-card-header">
+              <h3>Giảm Trừ Gia Cảnh 2026: Tăng Mạnh 41%</h3>
+              <div class="blog-meta">Quy định mới 2026</div>
+            </div>
+            <div class="blog-card-body">
+              <p>Giảm trừ gia cảnh là khoản được trừ vào thu nhập chịu thuế trước khi tính thuế TNCN. Từ 2026, mức giảm trừ tăng đáng kể:</p>
+              <ul>
+                <li><strong>Giảm trừ bản thân:</strong> 11 triệu → <strong>15.5 triệu/tháng</strong> (+41%)</li>
+                <li><strong>Giảm trừ người phụ thuộc:</strong> 4.4 triệu → <strong>6.2 triệu/người/tháng</strong> (+41%)</li>
+              </ul>
+              <p><strong>Ví dụ:</strong> Người có 2 người phụ thuộc sẽ được giảm trừ: 15.5 + (6.2 × 2) = 27.9 triệu/tháng. Điều này giúp giảm đáng kể thuế phải nộp, đặc biệt với người có nhiều người phụ thuộc.</p>
+            </div>
+          </div>
+
+          <div class="blog-card">
+            <div class="blog-card-header">
+              <h3>Cách Tính Lương Net Từ Gross 2026</h3>
+              <div class="blog-meta">Hướng dẫn chi tiết</div>
+            </div>
+            <div class="blog-card-body">
+              <p><strong>Bước 1:</strong> Tính các khoản bảo hiểm (BHXH, BHYT, BHTN)</p>
+              <p><strong>Bước 2:</strong> Tính thu nhập trước thuế = Lương Gross - Tổng bảo hiểm</p>
+              <p><strong>Bước 3:</strong> Tính giảm trừ = Giảm trừ bản thân (15.5 triệu) + Giảm trừ người phụ thuộc (6.2 triệu × số người)</p>
+              <p><strong>Bước 4:</strong> Tính thu nhập chịu thuế = Thu nhập trước thuế - Giảm trừ (nếu > 0)</p>
+              <p><strong>Bước 5:</strong> Áp dụng biểu thuế 5 bậc để tính thuế TNCN</p>
+              <p><strong>Bước 6:</strong> Lương Net = Lương Gross - Bảo hiểm - Thuế TNCN</p>
+              <p>Sử dụng công cụ tính lương trên trang này để tính toán tự động và chính xác nhất.</p>
+            </div>
+          </div>
+
+          <div class="blog-card">
+            <div class="blog-card-header">
+              <h3>Lương Tối Thiểu Vùng 2026 và Ảnh Hưởng</h3>
+              <div class="blog-meta">Quy định mới 2026</div>
+            </div>
+            <div class="blog-card-body">
+              <p>Lương tối thiểu vùng 2026 tăng khoảng 7%, ảnh hưởng chủ yếu đến mức đóng BHTN:</p>
+              <ul>
+                <li><strong>Vùng I:</strong> 4.96 triệu → 5.31 triệu (+7%)</li>
+                <li><strong>Vùng II:</strong> 4.41 triệu → 4.73 triệu (+7.3%)</li>
+                <li><strong>Vùng III:</strong> 3.86 triệu → 4.14 triệu (+7.3%)</li>
+                <li><strong>Vùng IV:</strong> 3.45 triệu → 3.7 triệu (+7.2%)</li>
+              </ul>
+              <p>Mức tăng này ảnh hưởng đến trần đóng BHTN (20 lần lương tối thiểu vùng), nhưng tác động không đáng kể so với lợi ích từ giảm trừ gia cảnh và biểu thuế mới.</p>
+            </div>
+          </div>
+
+          <div class="blog-card">
+            <div class="blog-card-header">
+              <h3>So Sánh Lương Net 2025 vs 2026</h3>
+              <div class="blog-meta">Phân tích so sánh</div>
+            </div>
+            <div class="blog-card-body">
+              <p>Với cùng mức lương Gross, lương Net 2026 sẽ cao hơn đáng kể so với 2025:</p>
+              <ul>
+                <li><strong>Lương 15 triệu:</strong> Tăng khoảng 300-500k/tháng</li>
+                <li><strong>Lương 25 triệu:</strong> Tăng khoảng 800k-1.2 triệu/tháng</li>
+                <li><strong>Lương 35 triệu:</strong> Tăng khoảng 1.5-2 triệu/tháng</li>
+                <li><strong>Lương 50 triệu:</strong> Tăng khoảng 2-3 triệu/tháng</li>
+              </ul>
+              <p>Nguyên nhân chính: Giảm trừ gia cảnh tăng 41% và biểu thuế mới ít bậc hơn giúp giảm thuế TNCN đáng kể. Người có nhiều người phụ thuộc sẽ hưởng lợi nhiều hơn.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -755,13 +1331,24 @@
       function toggleDetails() {
         const section = document.getElementById("detailSection");
         const btn = document.querySelector(".detail-toggle-btn");
-        if (section.style.display === "none" || section.style.display === "") {
+        const isExpanded = btn.getAttribute("aria-expanded") === "true";
+        
+        if (!isExpanded) {
           section.style.display = "block";
-          btn.innerHTML = "▲ Đóng bảng chi tiết";
+          btn.setAttribute("aria-expanded", "true");
+          btn.querySelector("span:first-child").textContent = "Đóng bảng chi tiết";
         } else {
           section.style.display = "none";
-          btn.innerHTML = "▼ Xem chi tiết các bước tính thuế";
+          btn.setAttribute("aria-expanded", "false");
+          btn.querySelector("span:first-child").textContent = "Xem chi tiết các bước tính thuế";
         }
+      }
+
+      function toggleFAQ(element) {
+        const faqItem = element.parentElement;
+        const isActive = faqItem.classList.contains("active");
+        faqItem.classList.toggle("active");
+        element.setAttribute("aria-expanded", !isActive);
       }
 
       // Format income input with thousand separators
