@@ -575,7 +575,7 @@
         <div class="form-group">
           <label>Lương đóng BH</label>
           <input
-            type="number"
+            type="text"
             id="insuranceSalary"
             placeholder="Mặc định = lương chính"
           />
@@ -1282,7 +1282,7 @@
         const dependents =
           parseInt(document.getElementById("dependents").value) || 0;
         const insuranceSalary =
-          parseFloat(document.getElementById("insuranceSalary").value) || 0;
+          parseFormattedNumber(document.getElementById("insuranceSalary").value) || 0;
         const regionMinSalary = parseFloat(
           document.getElementById("region").value
         );
@@ -1358,11 +1358,9 @@
         element.setAttribute("aria-expanded", !isActive);
       }
 
-      // Format income input with thousand separators
-      document.addEventListener("DOMContentLoaded", function () {
-        const incomeInput = document.getElementById("income");
-        
-        incomeInput.addEventListener("input", function (e) {
+      // Setup thousand separator formatting for an input element
+      function setupThousandSeparator(inputElement) {
+        inputElement.addEventListener("input", function (e) {
           // Remove both dots and commas before processing
           let value = e.target.value.replace(/[.,]/g, "");
           
@@ -1381,12 +1379,18 @@
         });
 
         // Format on blur to ensure proper formatting even if user pastes
-        incomeInput.addEventListener("blur", function (e) {
+        inputElement.addEventListener("blur", function (e) {
           const value = parseFormattedNumber(e.target.value);
           if (value > 0) {
             e.target.value = formatNumberWithSeparator(value);
           }
         });
+      }
+
+      // Setup thousand separators for inputs
+      document.addEventListener("DOMContentLoaded", function () {
+        setupThousandSeparator(document.getElementById("income"));
+        setupThousandSeparator(document.getElementById("insuranceSalary"));
       });
     </script>
   </body>
